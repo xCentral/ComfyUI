@@ -123,6 +123,20 @@ class TestWorkflowMetadataFromPrompt:
             self.pnginfo({"id": "abc", "nodes": []})
         ) == {"workflow_id": "abc"}
 
+    def test_id_at_the_metadata_limit_is_used(self):
+        workflow_id = "a" * (256 - len(json.dumps({"workflow_id": ""})))
+        assert len(json.dumps({"workflow_id": workflow_id})) == 256
+        assert server.workflow_metadata_from_prompt(
+            self.pnginfo({"id": workflow_id})
+        ) == {"workflow_id": workflow_id}
+
+    def test_id_over_the_metadata_limit_is_ignored(self):
+        workflow_id = "a" * (257 - len(json.dumps({"workflow_id": ""})))
+        assert len(json.dumps({"workflow_id": workflow_id})) == 257
+        assert server.workflow_metadata_from_prompt(
+            self.pnginfo({"id": workflow_id})
+        ) is None
+
     def test_absent_when_the_workflow_has_no_id(self):
         assert server.workflow_metadata_from_prompt(self.pnginfo({"nodes": []})) is None
 
