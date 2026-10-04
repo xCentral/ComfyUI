@@ -46,6 +46,8 @@ components:
                     description: Relative path in global-namespace-root form (e.g. "models/checkpoints/flux.safetensors")
                     nullable: true
                     type: string
+                    x-runtime:
+                        - cloud
                 hash:
                     description: Blake3 hash of the asset content.
                     pattern: ^blake3:[a-f0-9]{64}$
@@ -187,6 +189,8 @@ components:
                     description: Relative path in global-namespace-root form (e.g. "models/checkpoints/flux.safetensors")
                     nullable: true
                     type: string
+                    x-runtime:
+                        - cloud
                 hash:
                     description: Blake3 hash of the asset content.
                     pattern: ^blake3:[a-f0-9]{64}$
@@ -1843,6 +1847,8 @@ paths:
                   name: metadata_filter
                   schema:
                     type: string
+                  x-runtime:
+                    - cloud
                 - description: Maximum number of assets to return (1-500)
                   in: query
                   name: limit
@@ -2760,6 +2766,8 @@ paths:
                   name: metadata_filter
                   schema:
                     type: string
+                  x-runtime:
+                    - cloud
                 - description: Maximum number of tags to return (1-1000, default 100)
                   in: query
                   name: limit
